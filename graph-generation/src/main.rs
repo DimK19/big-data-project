@@ -10,9 +10,9 @@ fn main()
     let distribution = Bernoulli::new(p).unwrap();
     let mut edges = Vec::new();
 
-    for v1 in 1..vertices
+    for v1 in 1..vertices + 1
     {
-        for v2 in 1..vertices
+        for v2 in 1..vertices + 1
         {
             let decision = distribution.sample(&mut rand::thread_rng());
             if decision
@@ -25,7 +25,7 @@ fn main()
     let mut all_lines = String::new();
     for e in edges
     {
-        let line = format!("{}, {}", e.0, e.1);
+        let line = format!("{}\t{}", e.0, e.1);
         all_lines.push_str(&line);
         all_lines.push('\n');
     }
