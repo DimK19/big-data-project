@@ -102,11 +102,11 @@ fn main() {
                 worker.step();
             }
         }
-
+		//while worker.step(){;}
         println!("***************************************");
         let mut s=String::new();
 
-        stdin().read_line(&mut s).expect("Did not enter a correct string");
+        //stdin().read_line(&mut s).expect("Did not enter a correct string");
 
         input.advance_to(1);
         input.send((2,7));
