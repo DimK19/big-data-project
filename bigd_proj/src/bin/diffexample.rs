@@ -125,8 +125,8 @@ fn main() {
                     //input.update((rng2.gen_range(0, nodes), rng2.gen_range(0, nodes)), -1);
                     input.update((rng1.gen_range(0, nodes), rng1.gen_range(0, nodes)), 1);
                     //input.update((rng1.gen_range(0, nodes), rng1.gen_range(0, nodes)), 1);
-
-                    if round == next {
+                    // if round == next{
+                    if round > next {
                         let timer = ::std::time::Instant::now();
                         input.flush();
                         while probe.less_than(input.time()) {

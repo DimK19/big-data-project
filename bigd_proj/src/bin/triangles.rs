@@ -106,12 +106,13 @@ fn main() {
             if index == 0 {
 
                 let mut next = batch;
-                for round in 1..2{
-                
-                    input.advance_to(round);
-                    input.update((2,4), 1);
-                    input.update((1,4), 1);
-                    input.update((1,2), 1);
+                for round in 1..3{
+                    if(round != 3){
+                        input.advance_to(round);
+                        input.update((2,4), 1);
+                        input.update((1,4), 1);
+                        input.update((1,2), 1);
+                    }
 
 
                     //input.update((1,2), 1);
@@ -124,8 +125,8 @@ fn main() {
 
                     //input.update((rng2.gen_range(0, nodes), rng2.gen_range(0, nodes)), -1);
                     //input.update((rng1.gen_range(0, nodes), rng1.gen_range(0, nodes)), 1);
-                    //if round > next {
-                    if round == next {
+                    if round > next {
+                    //if round == next {
                         let timer = ::std::time::Instant::now();
                         input.flush();
                         while probe.less_than(input.time()) {
