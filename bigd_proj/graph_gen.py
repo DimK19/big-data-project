@@ -3,9 +3,9 @@ import networkx as nx
 
 random.seed(10)
 
-n=10
-d=5
-p=0.25
+n=10000
+d=100
+p=0.45
 
 # για την κατασκευή του SW χρησιμοποιήστε την watts_strogatz_graph από το networkx. 
 #uncomment 
