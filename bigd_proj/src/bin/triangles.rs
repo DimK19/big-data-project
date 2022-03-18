@@ -175,29 +175,4 @@ fn getnodes(filename: String) -> VecDeque<u32>  {
 
     }
     return buf;
-
-
 }
-/*fn triangles<G>(edges: &Collection<G, Edge<Node>>) -> Collection<G, (Node, Node, Node)>
-where
-	G: timely::dataflow::scopes::Scope,
-	G::Timestamp: differential_dataflow::lattice::Lattice+std::hash::Hash+Ord
-{
-	use differential_dataflow::operators::join::Join;
-
-	//gia tupwma
-	/*edges
-		.inspect(move |x| println!("{:?}\t{:?}\t{:?}", x.0, x.1, x.2));*/
-
-	edges
-		.join(&edges)
-		.map(|(a,(b,c))| (a,b,c))
-		.filter(|(_a,b,c)| b < c)
-		.map(|(a,b,c)| ((b,c),a))
-		.semijoin(&edges)
-		.map(|((b,c),a)|(a,b,c))
-
-}
-*/
-
-
