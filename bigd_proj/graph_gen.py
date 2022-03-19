@@ -6,19 +6,19 @@ random.seed(10)
 # an theloume na einai connected prepei afou tous dhmiourghsoume
 # na tsekaroume to is_connected
 
-n=100 # number of nodes
-d=5   # each node is connected to d nearest neighbors
-p=0.45  # the probability of rewiring each edge
-R=0.35  # distance threshold value
-M=150   # the number of edges
-p=0.3   # probability for edge creation
+n = 10 # number of nodes
+d = 100   # each node is connected to d nearest neighbors
+p = 0.45  # the probability of rewiring each edge
+R = 0.35  # distance threshold value
+M = 150   # the number of edges
+p = 0.5   # probability for edge creation
 
 # uparxoun kai alles parametroi gia to grafhmata auta
 # analutika sto documentation tou nx (kai exoun default times)
 # px gia RGG uparxei to dim pou exei default 2 pou prosdiorizei ta dimensions tou graph
 
 
-# uncomment 
+# uncomment
 # graph = nx.watts_strogatz_graph(n, d, 0) #REG
 # graph = nx.watts_strogatz_graph(n, d, p) #SW
 # graph = nx.gnm_random_graph(n, M)        #RGER
