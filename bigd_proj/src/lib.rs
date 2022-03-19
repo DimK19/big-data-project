@@ -1,7 +1,8 @@
 use std::collections::VecDeque;
 use std::fs;
+use std::process;
 
-pub fn getnodes(filename: String) -> VecDeque<u32>  {
+pub fn getnodes(filename: String) -> (VecDeque<u32>, u32)  {
     // --snip--
     //let mut filename = String::from("random_graph.txt");    
     //println!("In file {}", filename);
@@ -9,7 +10,9 @@ pub fn getnodes(filename: String) -> VecDeque<u32>  {
     let contents = fs::read_to_string(filename)
         .expect("Something went wrong reading the file");
     let mut buf = VecDeque::new();
-    
+
+    let mut max: u32 = 0;
+
     let split = contents.split("\n");
     for i in split{
         // println!("{}",i);
@@ -19,12 +22,17 @@ pub fn getnodes(filename: String) -> VecDeque<u32>  {
         let mut count: u32 = 0;
         for p in parts{
             if count < 2{
-                buf.push_back(p.unwrap())
+                let val = p.unwrap();
+                if val > max{
+                    max = val;
+                }
+                buf.push_back(val)
             }
             count += 1;
         }
-        if count != 2 {
-            println!("There was probably an error with the formatting of the edges file. Please check")
+        if count > 2 || count == 1{
+            println!("There was probably an error with the formatting of the edges file. Please check!");
+            process::exit(1);
         }
         /*
         // auto htan to palio part alla eskage an uparxe newline sto telos tou arxeiou
@@ -38,5 +46,6 @@ pub fn getnodes(filename: String) -> VecDeque<u32>  {
         buf.push_back(node2);
         */
     }
-    return buf;
+    //println!("{}",max+1);
+    return (buf,max);
 }

@@ -22,7 +22,7 @@ fn main() {
     let mut args = std::env::args();
     args.next();
 
-    let nodes: u32 = args.next().unwrap().parse().unwrap();
+    //let nodes: u32 = args.next().unwrap().parse().unwrap();
     //let edges: usize = args.next().unwrap().parse().unwrap();
     
     //let nodes: u32 = 10000;
@@ -31,7 +31,8 @@ fn main() {
     let inspect: bool = args.next().unwrap() == "inspect";
     
     let filename = String::from("random_graph.txt");
-    let nums = bigd_proj::getnodes(filename);
+    //let nums = bigd_proj::getnodes(filename);
+    let (nums,nodes) = bigd_proj::getnodes(filename);
     //nums.pop_front().unwrap().helppp();
 
     //println!("{} {}", nums.pop_front().unwrap(), nums.pop_front().unwrap());
@@ -123,12 +124,14 @@ fn main() {
             if index == 0 {
 
                 let mut next = batch;
-                for round in 1..12{
+                let no_rounds: u32 = 4;
+
+                for round in 1..no_rounds+2{
 
                     input.advance_to(round);
 
                     // twra fainetai na einai komple
-                    if round != 11 {
+                    if round != no_rounds+1 {
                         //input.update((1,4), 1);
                         //input.update((1,4), -1);
                         input.update((rng1.gen_range(0, nodes), rng1.gen_range(0, nodes)), 1);

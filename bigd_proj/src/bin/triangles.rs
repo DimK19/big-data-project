@@ -23,7 +23,7 @@ fn main() {
     let mut args = std::env::args();
     args.next();
 
-    let nodes: u32 = args.next().unwrap().parse().unwrap();
+    //let nodes: u32 = args.next().unwrap().parse().unwrap();
     //let edges: usize = args.next().unwrap().parse().unwrap();
     
     //let nodes: u32 = 5;
@@ -32,13 +32,14 @@ fn main() {
     let inspect: bool = args.next().unwrap() == "inspect";
     
     let filename = String::from("random_graph.txt");
-    let nums = bigd_proj::getnodes(filename);
+    //let nums = bigd_proj::getnodes(filename).0;
+    let (nums,nodes) = bigd_proj::getnodes(filename);
     //nums.pop_front().unwrap().helppp();
 
     //println!("{} {}", nums.pop_front().unwrap(), nums.pop_front().unwrap());
     //println!("{} {}", nums.pop_front().unwrap(), nums.pop_front().unwrap());
     // define a new computational scope, in which to run BFS
-    timely::execute_from_args(std::env::args().skip(3), move |worker| {
+    timely::execute_from_args(std::env::args().skip(2), move |worker| {
 
         // to metaferw pio kata gia na metraw mono to xrono twn upologismwn
         // let timer = ::std::time::Instant::now();
@@ -111,15 +112,21 @@ fn main() {
             if index == 0 {
 
                 let mut next = batch;
-                for round in 1..17{
+                let no_rounds: u32 = 4;
+                for round in 1..no_rounds+2{
 
                     input.advance_to(round);
 
-                    if round != 16 {
-                        //input.update((2,4), 1);
+                    if round != no_rounds+1 {
+                        if round == 2{
+                            input.update((1,5), 1);
+                        }
+                        if round == 3{
+                            input.update((1,1500), 1);
+                        }
                         //input.update((1,2), -1);
-                        input.update((rng1.gen_range(0, nodes), rng1.gen_range(0, nodes)), 1);
-                        input.update((rng2.gen_range(0, nodes), rng2.gen_range(0, nodes)), -1);
+                        //input.update((rng1.gen_range(0, nodes), rng1.gen_range(0, nodes)), 1);
+                        //input.update((rng2.gen_range(0, nodes), rng2.gen_range(0, nodes)), -1);
                     }
 
 
