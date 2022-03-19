@@ -16,3 +16,4 @@ Cargo.lock
 # Additional
 test.txt
 random_graph.txt
+edges_to_remove.txt
