@@ -4,7 +4,7 @@ use std::process;
 
 pub fn getnodes(filename: String) -> (VecDeque<u32>, u32)  {
     // --snip--
-    //let mut filename = String::from("random_graph.txt");    
+    //let mut filename = String::from("random_graph.txt");
     //println!("In file {}", filename);
 
     let contents = fs::read_to_string(filename)
@@ -48,4 +48,22 @@ pub fn getnodes(filename: String) -> (VecDeque<u32>, u32)  {
     }
     //println!("{}",max+1);
     return (buf,max);
+}
+
+pub fn get_edges(filename: String) -> VecDeque<(u32, u32)>
+{
+    let contents = fs::read_to_string(filename)
+        .expect("Something went wrong reading the file");
+    let mut buf = VecDeque::new();
+
+    let split = contents.split("\n");
+    for i in split
+    {
+        let mut parts = i.split_whitespace().map(|s| s.parse::<u32>());
+        let node1 = parts.next().unwrap().unwrap();
+        let node2 = parts.next().unwrap().unwrap();
+        buf.push_back((node1, node2));
+    }
+    
+    return buf;
 }
