@@ -15,17 +15,16 @@ use differential_dataflow::operators::reduce::Count;
 
 fn main()
 {
-    timely::execute_from_args(std::env::args(), |worker| {
+    let filename = std::env::args().nth(1).expect("Must provide file name");
+    let inspect = std::env::args().nth(2).expect("Must provide inspect").parse::<bool>().expect("Could not parse inspect - expected boolean.");
 
-        let filename = std::env::args().nth(1).expect("Must provide file name");
-        let inspect = std::env::args().nth(2).expect("Must provide inspect").parse::<bool>().expect("Could not parse inspect - expected boolean.");
+    timely::execute_from_args(std::env::args(), move |worker| {
 
         let index = worker.index();
         let peers = worker.peers();
         let timer = worker.timer();
 
-        let edges = lib::load_graph(&filename, index, peers);
-
+        let edges = lib::load_edges(&filename);
         println!("{:?}\tLoaded {} edges", timer.elapsed(), edges.len());
 
         let mut probe = timely::dataflow::ProbeHandle::new();
@@ -41,12 +40,13 @@ fn main()
                 .map(|(src, dst)| if src < dst { (src, dst) } else { (dst, src) })
                 .distinct();
 
-            pagerank(20, &edges)
-                .filter(move |_| inspect)
-                .map(|_| ())
-                .consolidate()
-                .inspect(move |x| println!("{:?} idk {:?}", timer.elapsed(), x))
-                .probe_with(&mut probe);
+            let larry = pagerank(20, &edges)
+                        .filter(move |_| inspect)
+                        .map(|_| ())
+                        .consolidate()
+                        .inspect(move |x| println!("{:?} IDK {:?}", timer.elapsed(), x))
+                        .probe_with(&mut probe);
+            }
         });
 
         while worker.step() { }
