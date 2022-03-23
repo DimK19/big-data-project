@@ -7,12 +7,12 @@ random.seed(10)
 # an theloume na einai connected prepei afou tous dhmiourghsoume
 # na tsekaroume to is_connected
 
-n = 1000    # number of nodes
+n = 1000  # number of nodes
 d = 100   # each node is connected to d nearest neighbors
 p = 0.55  # the probability of rewiring each edge
 R = 0.35  # distance threshold value
 M = 150   # the number of edges
-m = 1000    # bipartite nodes of second side
+m = 1000  # bipartite nodes of second side
 
 # uparxoun kai alles parametroi gia to grafhmata auta
 # analutika sto documentation tou nx (kai exoun default times)

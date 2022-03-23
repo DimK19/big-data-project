@@ -38,7 +38,7 @@ fn main() {
     //println!("{} {}", nums.pop_front().unwrap(), nums.pop_front().unwrap());
     //println!("{} {}", nums.pop_front().unwrap(), nums.pop_front().unwrap());
     // define a new computational scope, in which to run BFS
-    timely::execute_from_args(std::env::args().skip(3), move |worker| {
+    timely::execute_from_args(std::env::args().skip(2), move |worker| {
 
         // to metaferw pio kata gia na metraw mono to xrono twn upologismwn
         // let timer = ::std::time::Instant::now();
