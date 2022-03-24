@@ -74,8 +74,9 @@ def add_random_edges(graph, num = 1, threshold = 50):
         if count == num:
             return res
         elif err >= threshold:
-            print("Graph might be full. Difficulty adding any more edges.")
-            exit   
+            res[0] = str(count)
+            print("Graph might be full. Difficulty adding any more edges. Added " + str(count) + " edges" )
+            return res   
 
 def remove_random_edges(graph, num = 1, threshold = 50):
     res = []
@@ -95,8 +96,9 @@ def remove_random_edges(graph, num = 1, threshold = 50):
         if count == num:
             return res
         elif err >= threshold:
-            print("Graph might be empty. Difficulty removing any more edges.")
-            exit
+            res[0] = str(count)
+            print("Graph might be empty. Difficulty removing any more edges. Removed " + str(count) + " edges")
+            return res
 
 
 
@@ -148,6 +150,9 @@ graph = nx.watts_strogatz_graph(n, d, p)                              #SW
 
 write_graph(graph)
 
-res = remove_node_edges(graph, return_centrality_nodes(graph, "degree", 1)[0][0])
+res1 = remove_node_edges(graph, return_centrality_nodes(graph, "degree", 1)[0][0])
 
-write_changes(res + remove_node_edges(graph, 0) + add_random_edges(graph, 5) + remove_random_edges(graph, 2))
+# sto res2 afairoume komvo me mikro centrality apla oxi ton teleutaio gt meta apo elegxo den eixe akmes
+res2 = remove_node_edges(graph, return_centrality_nodes(graph, "closeness", 5, False)[4][0])
+
+write_changes(res1 + res2 + remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))
