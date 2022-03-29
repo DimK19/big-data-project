@@ -37,40 +37,31 @@ def return_centrality_nodes(graph, centrality = "degree", num = 5, top = True):
 def return_node_neighbors(graph, node):
     return list(graph.adj[node])
 
-def remove_node_edges(graph, node, num = -1):
-    res = []
-    neig = list(graph.adj[node])
-    num_temp = len(list(graph.adj[node]))
-    if num == -1:
-        num = num_temp
-    elif num > num_temp:
-        num = num_temp
-        print("Node " + str(node) + " does not have so many neighbors")
-    res.append(str(num))
-    for i in neig[:num]:
-      if node < i:
-        res.append("" + str(node) + " " + str(i) + " -1")
-        graph.remove_edge(node, i)
-      else:
-        res.append("" + str(i) + " " + str(node) + " -1")
-        graph.remove_edge(node, i)
-    return res
+# oi add_random kai remove_random dialegoun se kathe epanalhpsh sth tuxh ena komvo kai sth sunexeia sth tuxh ksana epilegoun apo th lista twn diathesimwn upoloipwn
+# non_neighbors kai neighbors antistoixa ena epishs tuxaio komvo gia na prosthesoun h na afairesoun akmh. Se periptwsh pou den mporei na ginei kati tetoio auksanoun to err 
+# kata ena to opoio an perasei ena threshold stamatei th diadiakasia kai ginontia mono oi prostheseis oi afaireseis pou eixan epiteuxthei mexri ekeino to vhma
 
-def add_random_edges(graph, num = 1, threshold = 50):
+def add_random_edges(graph, num = 1, threshold = 500):
     res = []
     res.append(str(num))
     count = 0
     err = 0
     while True:
-        node1 = random.randint(1,graph.number_of_nodes()-1)
+        node1 = random.randrange(0,graph.number_of_nodes())
         # an valoume node + 1 edw mporoume na apofugoume ta self loops
-        node2 = random.randint(node1,graph.number_of_nodes()-1)
-        if graph.has_edge(node1,node2):
+        # node2 = random.randint(node1,graph.number_of_nodes()-1)
+        temp = list(nx.non_neighbors(graph, node1))
+        if len(temp) == 0:
             err += 1
         else:
+            node2 = temp[random.randrange(len(temp))]
             count += 1
-            res.append(str(node1) + " " + str(node2) + " 1")
-            graph.add_edge(node1,node2)
+            if node1 < node2:
+                res.append(str(node1) + " " + str(node2) + " 1")
+                graph.add_edge(node1,node2)
+            else:
+                res.append(str(node2) + " " + str(node1) + " 1")
+                graph.add_edge(node2,node1) 
         if count == num:
             return res
         elif err >= threshold:
@@ -78,21 +69,27 @@ def add_random_edges(graph, num = 1, threshold = 50):
             print("Graph might be full. Difficulty adding any more edges. Added " + str(count) + " edges" )
             return res   
 
-def remove_random_edges(graph, num = 1, threshold = 50):
+def remove_random_edges(graph, num = 1, threshold = 500):
     res = []
     res.append(str(num))
     count = 0
     err = 0
     while True:
-        node1 = random.randint(1,graph.number_of_nodes()-1)
+        node1 = random.randrange(0,graph.number_of_nodes())
         # an valoume node + 1 edw mporoume na apofugoume ta self loops
-        node2 = random.randint(node1,graph.number_of_nodes()-1)
-        if not graph.has_edge(node1,node2):
+        # node2 = random.randint(node1,graph.number_of_nodes()-1)
+        temp = list(nx.neighbors(graph, node1))
+        if len(temp) == 0:
             err += 1
         else:
+            node2 = temp[random.randrange(len(temp))]
             count += 1
-            res.append(str(node1) + " " + str(node2) + " -1")
-            graph.remove_edge(node1,node2)
+            if node1 < node2:
+                res.append(str(node1) + " " + str(node2) + " -1")
+                graph.remove_edge(node1,node2)
+            else:
+                res.append(str(node2) + " " + str(node1) + " -1")
+                graph.remove_edge(node2,node1) 
         if count == num:
             return res
         elif err >= threshold:
@@ -100,6 +97,61 @@ def remove_random_edges(graph, num = 1, threshold = 50):
             print("Graph might be empty. Difficulty removing any more edges. Removed " + str(count) + " edges")
             return res
 
+
+def add_node_edges(graph, node, num = -1):
+    res = []
+    neig = list(nx.non_neighbors(graph, node))
+    num_temp = len(list(neig))
+    if num == -1:
+        num = num_temp
+    elif num > num_temp:
+        num = num_temp
+        print("Node " + str(node) + " does not have so many non neighbors")
+        print("Adding " + str(num) + " edges instead")
+    res.append(str(num))
+    for i in range(num):
+      neig = list(nx.non_neighbors(graph, node))
+      rand_node = random.randrange(0, len(neig))
+      if node < neig[rand_node]:
+        res.append("" + str(node) + " " + str(neig[rand_node]) + " 1")
+        graph.add_edge(node, neig[rand_node])
+      else:
+        res.append("" + str(neig[rand_node]) + " " + str(node) + " 1")
+        graph.add_edge(node, neig[rand_node])
+    return res
+
+
+def remove_node_edges(graph, node, num = -1):
+    res = []
+    neig = list(nx.neighbors(graph, node))
+    num_temp = len(neig)
+    if num == -1:
+        num = num_temp
+    elif num > num_temp:
+        num = num_temp
+        print("Node " + str(node) + " does not have so many neighbors")
+        print("Removing " + str(num) + " edges instead")
+    res.append(str(num))
+    for i in range(num):
+      neig = list(nx.neighbors(graph, node))
+      rand_node = random.randrange(0, len(neig))
+      if node < neig[rand_node]:
+        res.append("" + str(node) + " " + str(neig[rand_node]) + " -1")
+        graph.remove_edge(node, neig[rand_node])
+      else:
+        res.append("" + str(neig[rand_node]) + " " + str(node) + " -1")
+        graph.remove_edge(node, neig[rand_node])
+    return res
+
+
+def merge_rounds(res1, res2):
+    res = []
+    res.append(str(int(res1[0]) + int(res2[0])))
+    for i in res1[1:]:
+        res.append(i)
+    for i in res2[1:]:
+        res.append(i)
+    return res
 
 
 def write_changes(res):
@@ -121,7 +173,12 @@ def write_graph(graph):
             f.write(line)
             count += 1
 
+
+# to eixame gia th diarkeia twn dokimwn mporei na afairethei sth sunexeia
+# h na meinei gia na uparxei omoiomorfia sta test an theloume
 random.seed(10)
+
+# genika to graph pou dhmiourgeitai ananewnetai meta apo kathe round etsi wste na exoun nohma kai oi allages pou ginontai sta epomena rounds
 
 # an theloume na einai connected prepei afou tous dhmiourghsoume
 # na tsekaroume to is_connected
@@ -155,4 +212,7 @@ res1 = remove_node_edges(graph, return_centrality_nodes(graph, "degree", 1)[0][0
 # sto res2 afairoume komvo me mikro centrality apla oxi ton teleutaio gt meta apo elegxo den eixe akmes
 res2 = remove_node_edges(graph, return_centrality_nodes(graph, "closeness", 5, False)[4][0])
 
-write_changes(res1 + res2 + remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))
+res_merged = merge_rounds(res1, res2)
+
+# h add kai h remove vazoun kai vgazoun tuxaies akmes enos komvou. An den epileksoume poses vazoun h vgazoun oles tis dunates
+write_changes(res_merged + add_node_edges(graph, 1, 10) +  remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))
