@@ -97,9 +97,12 @@ def remove_random_edges(graph, num = 1, threshold = 500):
             print("Graph might be empty. Difficulty removing any more edges. Removed " + str(count) + " edges")
             return res
 
-
-def add_node_edges(graph, node, num = -1):
+# to max_node xreiazetai etsi wste an o komvos den uparxei na dhmiourgei neo komvo wste na mporei na tou vazei tis katallhles akmes
+# logika tha pairnei timh n pou einai to orisma gia to megethos kata th dhmiourgia tou grafhmatos
+def add_node_edges(graph, node, max_node, num = -1):
     res = []
+    if node >= max_node:
+        graph.add_node(node)
     neig = list(nx.non_neighbors(graph, node))
     num_temp = len(list(neig))
     if num == -1:
@@ -215,4 +218,4 @@ res2 = remove_node_edges(graph, return_centrality_nodes(graph, "closeness", 5, F
 res_merged = merge_rounds(res1, res2)
 
 # h add kai h remove vazoun kai vgazoun tuxaies akmes enos komvou. An den epileksoume poses vazoun h vgazoun oles tis dunates
-write_changes(res_merged + add_node_edges(graph, 1, 10) +  remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))
+write_changes(res_merged + add_node_edges(graph, 1000, n, 10) +  remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))

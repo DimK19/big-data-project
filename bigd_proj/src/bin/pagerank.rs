@@ -78,7 +78,7 @@ fn main() {
                 // Bind the recursive variable, return its limit.
                 ranks.set(&pushed);
                 pushed.leave()
-            }).map(|_| 0) 
+            })//.map(|_| 0) 
               // me auto to map emfanizei to athroisma olwn twn pageranks
               // an einai megalos o graphos den xwraei na tupwnei gia ton kathena ksexwrista)
               // an theloume gia kathena ksexwrista apla svhnoume to map
