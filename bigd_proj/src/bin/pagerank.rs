@@ -100,8 +100,8 @@ fn main() {
 
         let filename = String::from("edges_to_change.txt");
         let (mut changes, mut no_changes, no_rounds) = bigd_proj::getchanges(filename);
-        let timer = ::std::time::Instant::now();
         input.advance_to(1);
+        let timer = ::std::time::Instant::now();
         input.flush();
         worker.step_while(|| probe.less_than(input.time()));
 
