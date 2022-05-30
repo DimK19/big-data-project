@@ -6,6 +6,8 @@ use differential_dataflow::input::Input;
 use differential_dataflow::operators::count::CountTotal;
 use crate::differential_dataflow::operators::Join;
 
+// gia na treksoun prepei na uparxoun ta arxeia random_graph.txt kai edges_to_change.txt anagkastika
+
 fn main() {
 
     let mut args = std::env::args();

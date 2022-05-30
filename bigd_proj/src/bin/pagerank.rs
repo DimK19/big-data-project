@@ -8,6 +8,8 @@ use differential_dataflow::operators::{*, iterate::Variable};
 use differential_dataflow::AsCollection;
 use differential_dataflow::input::Input;
 
+// gia na treksoun prepei na uparxoun ta arxeia random_graph.txt kai edges_to_change.txt anagkastika
+
 fn main() {
 
     let mut args = std::env::args();

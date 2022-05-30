@@ -1,6 +1,8 @@
 import random
 import networkx as nx
 from networkx.algorithms import bipartite
+import time
+
 
 
 def test_print(graph, type = "pagerank"):
@@ -186,9 +188,9 @@ random.seed(10)
 # an theloume na einai connected prepei afou tous dhmiourghsoume
 # na tsekaroume to is_connected
 
-n = 1000  # number of nodes
-d = 100   # each node is connected to d nearest neighbors
-p = 0.55  # the probability of rewiring each edge
+n = 1000000  # number of nodes
+d = 1000   # each node is connected to d nearest neighbors
+p = 0.01  # the probability of rewiring each edge
 R = 0.35  # distance threshold value
 M = 150   # the number of edges
 m = 10  # bipartite nodes of second side
@@ -197,25 +199,28 @@ m = 10  # bipartite nodes of second side
 # analutika sto documentation tou nx (kai exoun default times)
 # px gia RGG uparxei to dim pou exei default 2 pou prosdiorizei ta dimensions tou graph
 
+start_time = time.time()
 
 # uncomment
 # graph = nx.watts_strogatz_graph(n, d, 0)                              #REG
-graph = nx.watts_strogatz_graph(n, d, p)                              #SW
+# graph = nx.watts_strogatz_graph(n, d, p)                              #SW
 # graph = nx.gnm_random_graph(n, M)                                     #RGER
 # graph = nx.gnp_random_graph(n, p)                                     #RGGilbert
 # graph = nx.random_geometric_graph(n, R)                               #RGG
-# graph = nx.barabasi_albert_graph(n, d)                                #SF
+graph = nx.barabasi_albert_graph(n, d)                                #SF
 # graph = bipartite.random_graph(n, m, p, seed=None, directed=False)    #bipartite
 
 
 write_graph(graph)
-
-res1 = remove_node_edges(graph, return_centrality_nodes(graph, "degree", 1)[0][0])
+print("--- %s seconds ---" % (time.time() - start_time))
+#res1 = remove_node_edges(graph, return_centrality_nodes(graph, "degree", 1)[0][0])
 
 # sto res2 afairoume komvo me mikro centrality apla oxi ton teleutaio gt meta apo elegxo den eixe akmes
-res2 = remove_node_edges(graph, return_centrality_nodes(graph, "closeness", 5, False)[4][0])
+#res2 = remove_node_edges(graph, return_centrality_nodes(graph, "closeness", 5, False)[4][0])
 
-res_merged = merge_rounds(res1, res2)
+#res_merged = merge_rounds(res1, res2)
 
 # h add kai h remove vazoun kai vgazoun tuxaies akmes enos komvou. An den epileksoume poses vazoun h vgazoun oles tis dunates
-write_changes(res_merged + add_node_edges(graph, 1000, n, 10) +  remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))
+#Swrite_changes(res_merged + add_node_edges(graph, 1000, n, 10) +  remove_node_edges(graph, 0) + add_random_edges(graph, 300) + remove_random_edges(graph, 300))
+
+write_changes([])

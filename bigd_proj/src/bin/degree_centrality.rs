@@ -5,8 +5,9 @@ extern crate differential_dataflow;
 use differential_dataflow::input::Input;
 use differential_dataflow::operators::count::CountTotal;
 
-fn main() {
+// gia na treksoun prepei na uparxoun ta arxeia random_graph.txt kai edges_to_change.txt anagkastika
 
+fn main() {
     let mut args = std::env::args();
     args.next();
 
