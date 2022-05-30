@@ -188,7 +188,7 @@ random.seed(10)
 # an theloume na einai connected prepei afou tous dhmiourghsoume
 # na tsekaroume to is_connected
 
-n = 100  # number of nodes
+n = 10000  # number of nodes
 d = 10   # each node is connected to d nearest neighbors
 p = 0.01  # the probability of rewiring each edge
 R = 0.35  # distance threshold value

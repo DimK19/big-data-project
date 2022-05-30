@@ -17,7 +17,6 @@ int main(int argc, char **argv){
     int nodes = atoi(argv[1]); // arihtmos komvwn arxikou grafhmatos
     int mul = atoi(argv[2]); // paragontas pollaplasiasmou
 
-
     ifstream MyInput("random_graph.txt");
     ofstream TempFile("temp.txt");
     
@@ -40,7 +39,6 @@ int main(int argc, char **argv){
     ifstream TempInp("temp.txt");
     ofstream MyFile("random_graph.txt");
 
-
     while (TempInp >> a >> b)
         MyFile << to_string(a) + " " + to_string(b) + "\n";
     
@@ -50,6 +48,8 @@ int main(int argc, char **argv){
     tim = clock() - tim;
     cout << ((double)tim)/CLOCKS_PER_SEC << " seconds\n";
 
+    TempInp.close();
+    MyFile.close();
 
     return 0;
 }

@@ -34,9 +34,7 @@ int main(int argc, char **argv){
             int temp = rand() % 100;
             if(temp < (int)(prob*100))
                 MyFile << to_string(i) + " " + to_string(j) + "\n";
-            
         }
-
     }
 
     tim = clock() - tim;

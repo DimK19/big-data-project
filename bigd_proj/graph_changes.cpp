@@ -53,7 +53,8 @@ int main(int argc, char **argv){
     tim = clock() - tim;
     cout << ((double)tim)/CLOCKS_PER_SEC << " seconds\n";
 
-
+    TempInp.close();
+    MyFile.close();
 
     return 0;
 }
