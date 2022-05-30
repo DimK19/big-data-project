@@ -8,30 +8,29 @@
 using namespace std;
 
 int main(int argc, char **argv){
-    int x = atoi(argv[1]);
-    cout << x <<"\n";
 
-    /*
-    ofstream MyFile("edges_to_change.txt");
+    if(argc != 3){
+        cout << "You need to give parameters nodes of initial graph and multiplication factor\n";
+        return 0;
+    }
+
+    int nodes = atoi(argv[1]); // arihtmos komvwn arxikou grafhmatos
+    int mul = atoi(argv[2]); // paragontas pollaplasiasmou
+
+
     ifstream MyInput("random_graph.txt");
     ofstream TempFile("temp.txt");
     
-    time_t t;
-    srand((unsigned) time(&t));
-
-    double prob = 0.10;
-
     clock_t tim;
     tim = clock();
 
     int a,b;
-    int count = 0;
 
     while (MyInput >> a >> b){
-        int temp = rand() % 100;
-        if(temp < (int)(prob*100)){
-            count++;
-            TempFile << to_string(a) + " " + to_string(b) + "\n";
+        for(int i = 0; i<mul; i++){
+            for(int j = 0; j<mul; j++){
+                TempFile << to_string(nodes*i+a) << " " << to_string(nodes*j + b) << "\n";
+            }
         }
     }
 
@@ -39,11 +38,11 @@ int main(int argc, char **argv){
     TempFile.close();
 
     ifstream TempInp("temp.txt");
+    ofstream MyFile("random_graph.txt");
 
-    MyFile << count << "\n";
 
     while (TempInp >> a >> b)
-        MyFile << to_string(a) + " " + to_string(b) + " -1\n";
+        MyFile << to_string(a) + " " + to_string(b) + "\n";
     
     if( remove( "temp.txt" ) != 0 )
         perror( "Error deleting file" );
@@ -52,6 +51,5 @@ int main(int argc, char **argv){
     cout << ((double)tim)/CLOCKS_PER_SEC << " seconds\n";
 
 
-*/
     return 0;
 }

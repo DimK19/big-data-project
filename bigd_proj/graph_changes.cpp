@@ -7,7 +7,13 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char **argv){
+
+    if(argc != 2){
+        cout << "You need to give parameter for percentage of changes(0-100)\n";
+        return 0;
+    }
+
     ofstream MyFile("edges_to_change.txt");
     ifstream MyInput("random_graph.txt");
     ofstream TempFile("temp.txt");
@@ -15,7 +21,7 @@ int main(){
     time_t t;
     srand((unsigned) time(&t));
 
-    double prob = 0.10;
+    double prob = (double) atoi(argv[1]) / 100; // argv[1] deixnei to pososto twn allagwn sto round
 
     clock_t tim;
     tim = clock();

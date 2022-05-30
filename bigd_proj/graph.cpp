@@ -7,14 +7,20 @@
 
 using namespace std;
 
-int main(){
+int main(int argc, char **argv){
+
+    if(argc != 3){
+        cout << "You need to give number of nodes and rewiring probability(0-100)\n";
+        return 0;
+    }
+
     ofstream MyFile("random_graph.txt");
     ofstream TempFile("edges_to_change.txt"); // gia na dhmiourgei to adeio arxeio
     time_t t;
     srand((unsigned) time(&t));
 
-    int nofnodes = 250000;
-    double prob = 0.02;
+    int nofnodes = atoi(argv[1]); // number of nodes for graph generation
+    double prob = (double) atoi(argv[2]) / 100; // rewiring probability
 
     clock_t tim;
     tim = clock();
