@@ -38,7 +38,11 @@ fn main() {
 
             let out_degr_distr = out_degr_distr_in.concat(&out_degr_distr_out)
                                 .count_total()
-                                .map(|(_src, cnt)| cnt as usize)
+                                //.map(|(_src, cnt)| cnt as usize)
+                                .map(|(_src, _cnt)| 0 as usize) // auth h grammh ousiastika einai gia na emfanizei mono to plhthos twn komvwn
+                                                                // kai th xrhsimopoioume sto treksimo gia na mhn gemizei to terminal me grammes
+                                                                // kai na exei ena mono apotelesma gia ta benchmarks
+                                                                // gia swsth leitourgia prepei na svhstei kai na gine uncomment h apo panw
                                 .count_total();
 
             // show us something about the collection, notice when done.

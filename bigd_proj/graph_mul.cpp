@@ -27,8 +27,14 @@ int main(int argc, char **argv){
 
     while (MyInput >> a >> b){
         for(int i = 0; i<mul; i++){
+            int tempa = nodes*i+a;
             for(int j = 0; j<mul; j++){
-                TempFile << to_string(nodes*i+a) << " " << to_string(nodes*j + b) << "\n";
+                int tempb = nodes*j+b;
+                if(tempa<tempb)
+                    TempFile << to_string(tempa) << " " << to_string(tempb) << "\n";
+                else
+                    TempFile << to_string(tempb) << " " << to_string(tempa) << "\n";
+
             }
         }
     }

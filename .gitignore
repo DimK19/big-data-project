@@ -20,3 +20,4 @@ edges_to_remove.txt
 edges_to_change.txt
 *.out
 */.vscode/*
+my_notes.txt
