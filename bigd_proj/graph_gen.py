@@ -123,7 +123,6 @@ def add_node_edges(graph, node, max_node, num = -1):
       else:
         res.append("" + str(neig[rand_node]) + " " + str(node) + " 1")
         graph.add_edge(node, neig[rand_node])
-    return res
 
 
 def remove_node_edges(graph, node, num = -1):
@@ -188,8 +187,8 @@ random.seed(10)
 # an theloume na einai connected prepei afou tous dhmiourghsoume
 # na tsekaroume to is_connected
 
-n = 40000  # number of nodes
-d = 400   # each node is connected to d nearest neighbors
+n = 10000  # number of nodes
+d = 50   # each node is connected to d nearest neighbors
 p = 0.01  # the probability of rewiring each edge
 R = 0.35  # distance threshold value
 M = 150   # the number of edges
@@ -205,7 +204,7 @@ start_time = time.time()
 # graph = nx.watts_strogatz_graph(n, d, 0)                              #REG
 # graph = nx.watts_strogatz_graph(n, d, p)                              #SW
 # graph = nx.gnm_random_graph(n, M)                                     #RGER
-# graph = nx.gnp_random_graph(n, p)                                     #RGGilbert
+# graph = nx.gnp_random_graph(n, p)                                     #RGGilbert (random)
 # graph = nx.random_geometric_graph(n, R)                               #RGG
 graph = nx.barabasi_albert_graph(n, d)                                #SF
 # graph = bipartite.random_graph(n, m, p, seed=None, directed=False)    #bipartite
